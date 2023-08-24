@@ -98,14 +98,19 @@ pipeline {
         }
     }
 }
-         stage("Start Application") {
-
-            steps {
-              
-                      sh "kubectl --kubeconfig $KUBECONFIG apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/notejam-application-deploy.yml"
-                  
-            }
+        stage("Start Application") {
+    steps {
+        script {
+             kubeconfig = env.KUBECONFIG
+            
+            sh script: """
+                kubectl --kubeconfig ${kubeconfig} apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/notejam-application-deploy.yml
+            """, 
+            returnStatus: true
         }
+    }
+}
+
         stage("Minikube Service List") {
 
             steps {
