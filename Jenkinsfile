@@ -50,7 +50,7 @@ pipeline {
 
             steps {
 
-                sh "docker build -t shubhamdev2001/notejam-application --no-cache Jenekins-Notejam/"
+                sh "docker build -t shubhamdev2001/notejam-application --no-cache Notejam-pipeline/"
 
             }
 
@@ -85,45 +85,28 @@ pipeline {
         }
     }
 }
+
         stage("Start Database") {
 
             steps {
-                script {
-                    kubeconfig = env.KUBECONFIG
               
-                   sh script: """
-                       kubectl --kubeconfig $KUBECONFIG apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/postgres-deploy.yml
-                   """,
-                   returnStatus: true    
+                      sh "kubectl --kubeconfig $KUBECONFIG apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/postgres-deploy.yml"
                   
-         }
-     }
-}          
+            }
+        }
          stage("Start Application") {
 
             steps {
-                 script {
-                     kubeconfig = env.KUBECONFIG
               
-                     sh script: """
-              
-                      sh script: """
-                           kubectl --kubeconfig $KUBECONFIG apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/notejam-application-deploy.yml
-                      """,
-                      returnStatus: true
-                  }
+                      sh "kubectl --kubeconfig $KUBECONFIG apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/notejam-application-deploy.yml"
+                  
             }
         }
         stage("Minikube Service List") {
 
             steps {
-                 script {
-                      kuubeconfig = env.KUBECONFIG
-                      sh script: """
               
-                          kubectl --kubeconfig $KUBECONFIG get services
-                      """,
-                      returnStatus: true
+                      sh "kubectl --kubeconfig $KUBECONFIG get services"
             }
         }
 
