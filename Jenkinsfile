@@ -86,14 +86,18 @@ pipeline {
     }
 }
 
-        stage("Start Database") {
-
-            steps {
-              
-                      sh "kubectl --kubeconfig $KUBECONFIG apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/postgres-deploy.yml"
-                  
-            }
+       stage("Start Database") {
+    steps {
+        script {
+             kubeconfig = env.KUBECONFIG
+            
+            sh script: """
+                kubectl --kubeconfig ${kubeconfig} apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/postgres-deploy.yml
+            """, 
+            returnStatus: true
         }
+    }
+}
          stage("Start Application") {
 
             steps {
