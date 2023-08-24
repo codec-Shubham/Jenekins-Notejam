@@ -116,7 +116,7 @@ pipeline {
         script {
              kubeconfig = env.KUBECONFIG
             
-            sh "kubectl --kubeconfig ${kubeconfig} get services --server=https://192.168.59.102:8443"
+            sh "kubectl --kubeconfig ${kubeconfig} get services"
         }
     }
 }
