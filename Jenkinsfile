@@ -111,13 +111,16 @@ pipeline {
     }
 }
 
-        stage("Minikube Service List") {
-
-            steps {
-              
-                      sh "kubectl --kubeconfig $KUBECONFIG get services"
-            }
+       stage("Minikube Service List") {
+    steps {
+        script {
+             kubeconfig = env.KUBECONFIG
+            
+            sh "kubectl --kubeconfig ${kubeconfig} get services"
         }
+    }
+}
+
 
     }
 
