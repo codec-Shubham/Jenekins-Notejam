@@ -71,16 +71,20 @@ pipeline {
                   
         //     }
         // }
-        stage("Start Config Maps , Secrets ,Storage") {
-
-            steps {
-              
-                      sh "kubectl --kubeconfig $KUBECONFIG apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/secret.yaml"
-                      sh "kubectl --kubeconfig $KUBECONFIG apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/config.yaml"
-                      sh "kubectl --kubeconfig $KUBECONFIG apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/storage.yaml"
-                  
-            }
+       stage("Start Config Maps, Secrets, Storage") {
+    steps {
+        script {
+             kubeconfig = env.KUBECONFIG
+            
+            sh script: """
+                kubectl --kubeconfig ${kubeconfig} apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/secret.yaml
+                kubectl --kubeconfig ${kubeconfig} apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/config.yaml
+                kubectl --kubeconfig ${kubeconfig} apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/storage.yaml
+            """, 
+            returnStatus: true
         }
+    }
+}
         stage("Start Database") {
 
             steps {
