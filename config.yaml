@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: postgres-configmap
+data:
+  engine: "django.db.backends.postgresql_psycopg2"
+  dbname: "postgres"
+  port: "5432"

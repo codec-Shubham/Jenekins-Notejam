@@ -1,0 +1,8 @@
+FROM postgres:9.4
+
+ENV DB_ENGINE='django.db.backends.postgresql_psycopg2' 
+ENV DB_NAME='abhishek' 
+ENV DB_USER='abhishek' 
+ENV DB_PASSWORD='abhishek' 
+ENV DB_HOST='postgresdb' 
+ENV DB_PORT='5432'
