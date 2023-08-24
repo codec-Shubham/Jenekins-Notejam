@@ -88,24 +88,42 @@ pipeline {
         stage("Start Database") {
 
             steps {
+                script {
+                    kubeconfig = env.KUBECONFIG
               
-                      sh "kubectl --kubeconfig $KUBECONFIG apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/postgres-deploy.yml"
+                   sh script: """
+                       kubectl --kubeconfig $KUBECONFIG apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/postgres-deploy.yml
+                   """,
+                   returnStatus: true    
                   
-            }
-        }
+         }
+     }
+}          
          stage("Start Application") {
 
             steps {
+                 script {
+                     kubeconfig = env.KUBECONFIG
               
-                      sh "kubectl --kubeconfig $KUBECONFIG apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/notejam-application-deploy.yml"
-                  
+                     sh script: """
+              
+                      sh script: """
+                           kubectl --kubeconfig $KUBECONFIG apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/notejam-application-deploy.yml
+                      """,
+                      returnStatus: true
+                  }
             }
         }
         stage("Minikube Service List") {
 
             steps {
+                 script {
+                      kuubeconfig = env.KUBECONFIG
+                      sh script: """
               
-                      sh "kubectl --kubeconfig $KUBECONFIG get services"
+                          kubectl --kubeconfig $KUBECONFIG get services
+                      """,
+                      returnStatus: true
             }
         }
 
