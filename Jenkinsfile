@@ -28,7 +28,7 @@ pipeline {
 
             steps {
 
-                sh "git clone https://github.com/chndel-abhishek/Notejam-pipeline.git"
+                sh "git clone https://github.com/codec-Shubham/Jenekins-Notejam.git"
 
             }
 
@@ -50,7 +50,7 @@ pipeline {
 
             steps {
 
-                sh "docker build -t abhishek7868/notejam-application --no-cache Notejam-pipeline/"
+                sh "docker build -t shubhamdev2001/notejam-application --no-cache Notejam-pipeline/"
 
             }
 
@@ -59,7 +59,7 @@ pipeline {
 
             steps {
 
-                sh "docker push abhishek7868/notejam-application"
+                sh "docker push shubhamdev2001/notejam-application"
 
             }
         }
@@ -75,9 +75,9 @@ pipeline {
 
             steps {
               
-                      sh "kubectl --kubeconfig $KUBECONFIG apply -f /var/lib/jenkins/workspace/note-jenkins/Notejam-pipeline/secret.yaml"
-                      sh "kubectl --kubeconfig $KUBECONFIG apply -f /var/lib/jenkins/workspace/note-jenkins/Notejam-pipeline/config.yaml"
-                      sh "kubectl --kubeconfig $KUBECONFIG apply -f /var/lib/jenkins/workspace/note-jenkins/Notejam-pipeline/storage.yaml"
+                      sh "kubectl --kubeconfig $KUBECONFIG apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/secret.yaml"
+                      sh "kubectl --kubeconfig $KUBECONFIG apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/config.yaml"
+                      sh "kubectl --kubeconfig $KUBECONFIG apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/storage.yaml"
                   
             }
         }
@@ -85,7 +85,7 @@ pipeline {
 
             steps {
               
-                      sh "kubectl --kubeconfig $KUBECONFIG apply -f /var/lib/jenkins/workspace/note-jenkins/Notejam-pipeline/postgres-deploy.yml"
+                      sh "kubectl --kubeconfig $KUBECONFIG apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/postgres-deploy.yml"
                   
             }
         }
@@ -93,7 +93,7 @@ pipeline {
 
             steps {
               
-                      sh "kubectl --kubeconfig $KUBECONFIG apply -f /var/lib/jenkins/workspace/note-jenkins/Notejam-pipeline/notejam-application-deploy.yml"
+                      sh "kubectl --kubeconfig $KUBECONFIG apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/notejam-application-deploy.yml"
                   
             }
         }
