@@ -50,7 +50,7 @@ pipeline {
 
             steps {
 
-                sh "docker build -t shubhamdev2001/notejam-application --no-cache Notejam-pipeline/"
+                sh "docker build -t shubhamdev2001/notejam-application --no-cache Jenekins-Notejam/"
 
             }
 
