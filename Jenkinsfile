@@ -111,31 +111,31 @@ pipeline {
     }
 }
 
-       stage("Minikube Service List and Get URL") {
+      stage("Minikube Service List and Get URL") {
     steps {
         script {
-             kubeconfig = env.KUBECONFIG
-            
-            // Get the service details
-             serviceList = sh(
-                script: """
-                 kubectl --kubeconfig ${kubeconfig} get services -o json
-               """,  
-                returnStdout: true
-            ).trim()
+             serviceList
+            withCredentials([string(credentialsId: 'YOUR_CREDENTIALS_ID', variable: 'KUBECONFIG')]) {
+                serviceList = sh(
+                    script: """
+                        kubectl --kubeconfig ${KUBECONFIG} get services -o json
+                    """,  
+                    returnStdout: true
+                ).trim()
+            }
 
             // Parse the JSON output using readJSON step
-            def servicesJson = readJSON(text: serviceList)
+             servicesJson = readJSON(text: serviceList)
             
             // Iterate through the services
             servicesJson.items.each { service ->
-                def serviceName = service.metadata.name
-                def serviceType = service.spec.type
-                def serviceIP = service.spec.clusterIP
-                def servicePort = service.spec.ports[0].port
+                 serviceName = service.metadata.name
+                 serviceType = service.spec.type
+                 serviceIP = service.spec.clusterIP
+                 servicePort = service.spec.ports[0].port
                 
                 if (serviceType == "NodePort") {
-                    def serviceURL = "http://${serviceIP}:${servicePort}"
+                     serviceURL = "http://${serviceIP}:${servicePort}"
                     echo "Service: ${serviceName}, URL: ${serviceURL}"
                     
                     // Here you can perform further actions with the serviceURL
@@ -145,7 +145,6 @@ pipeline {
         }
     }
 }
-
 
 
 
