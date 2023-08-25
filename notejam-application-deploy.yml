@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: notejam-app
-        image: shubhamdev2001/notejam-application  
+        image: fbdo/notejam  
         ports:
         - containerPort: 8000
         env:
