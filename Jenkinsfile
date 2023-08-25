@@ -115,7 +115,7 @@ pipeline {
     steps {
         script {
              serviceList
-            withCredentials([string(credentialsId: 'YOUR_CREDENTIALS_ID', variable: 'KUBECONFIG')]) {
+            withCredentials([string(credentialsId: 'kubernetes', variable: 'KUBECONFIG')]) {
                 serviceList = sh(
                     script: """
                         kubectl --kubeconfig ${KUBECONFIG} get services -o json
