@@ -111,15 +111,39 @@ pipeline {
     }
 }
 
-       stage("Minikube Service List") {
+       stage("Minikube Service List and Get URL") {
     steps {
         script {
              kubeconfig = env.KUBECONFIG
             
-            sh "kubectl --kubeconfig ${kubeconfig} get services"
+            // Get the service details
+            serviceList = sh(
+                script: "kubectl --kubeconfig ${kubeconfig} get services -o json",
+                returnStdout: true
+            ).trim()
+
+            // Parse the JSON output
+             servicesJson = new JsonSlurperClassic().parseText(serviceList)
+            
+            // Iterate through the services
+            for (service in servicesJson.items) {
+                 serviceName = service.metadata.name
+                serviceType = service.spec.type
+                serviceIP = service.spec.clusterIP
+                servicePort = service.spec.ports[0].port
+                
+                if (serviceType == "NodePort") {
+                     serviceURL = "http://${serviceIP}:${servicePort}"
+                    echo "Service: ${serviceName}, URL: ${serviceURL}"
+                    
+                    // Here you can perform further actions with the serviceURL
+                    // For example, make HTTP requests, trigger tests, etc.
+                }
+            }
         }
     }
 }
+
 
 
     }
