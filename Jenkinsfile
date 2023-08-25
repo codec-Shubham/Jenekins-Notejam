@@ -6,7 +6,7 @@ pipeline {
     environment {
 
         DOCKERHUB_CREDENTIALS = credentials('DOCKERHUB')
-        KUBECONFIG = credentials('kubernetes')
+        KUBECONFIG = credentials('kube')
     }
 
 
@@ -50,7 +50,7 @@ pipeline {
 
             steps {
 
-                sh "docker build -t shubhamdev2001/notejam-application --no-cache Jenekins-Notejam/"
+                sh "docker build -t shubhamdev2001/notejam-application Jenekins-Notejam/"
 
             }
 
