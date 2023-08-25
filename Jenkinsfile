@@ -114,11 +114,13 @@ pipeline {
        stage("Minikube Service List and Get URL") {
     steps {
         script {
-            def kubeconfig = env.KUBECONFIG
+             kubeconfig = env.KUBECONFIG
             
             // Get the service details
-            def serviceList = sh(
-                script: "kubectl --kubeconfig ${kubeconfig} get services -o json",
+             serviceList = sh(
+                script: """
+                 kubectl --kubeconfig ${kubeconfig} get services -o json
+               """,  
                 returnStdout: true
             ).trim()
 
