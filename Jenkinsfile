@@ -70,9 +70,9 @@ pipeline {
              kubeconfig = env.KUBECONFIG
             
             sh script: """
-                kubectl --kubeconfig ${kubeconfig} apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/secret.yaml
-                kubectl --kubeconfig ${kubeconfig} apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/config.yaml
-                kubectl --kubeconfig ${kubeconfig} apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/storage.yaml
+                kubectl --kubeconfig ${kubeconfig} apply -f /var/lib/jenkins/workspace/note-jenkins/Notejam-pipeline/secret.yaml
+                kubectl --kubeconfig ${kubeconfig} apply -f /var/lib/jenkins/workspace/note-jenkins/Notejam-pipeline/config.yaml
+                kubectl --kubeconfig ${kubeconfig} apply -f /var/lib/jenkins/workspace/note-jenkins/Notejam-pipeline/storage.yaml
             """, 
             returnStatus: true
         }
@@ -85,7 +85,7 @@ pipeline {
              kubeconfig = env.KUBECONFIG
             
             sh script: """
-                kubectl --kubeconfig ${kubeconfig} apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/postgres-deploy.yml
+                kubectl --kubeconfig ${kubeconfig} apply -f /var/lib/jenkins/workspace/note-jenkins/Notejam-pipeline/postgres-deploy.yml
             """, 
             returnStatus: true
         }
@@ -97,7 +97,7 @@ pipeline {
              kubeconfig = env.KUBECONFIG
             
             sh script: """
-                kubectl --kubeconfig ${kubeconfig} apply -f /var/lib/jenkins/workspace/note-jenkins/Jenekins-Notejam/notejam-application-deploy.yml
+                kubectl --kubeconfig ${kubeconfig} apply -f /var/lib/jenkins/workspace/note-jenkins/Notejam-pipeline/notejam-application-deploy.yml
             """, 
             returnStatus: true
         }
