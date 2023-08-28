@@ -12,7 +12,6 @@ pipeline{
     stages {
         stage("Clean-up") {
             steps {
-
                 deleteDir()
             }
 
@@ -22,7 +21,6 @@ pipeline{
         stage("Clone repo") {
             steps {
                 sh "git clone https://github.com/codec-Shubham/Jenekins-Notejam.git"
-
             }
 
         }
