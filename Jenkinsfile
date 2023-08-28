@@ -1,6 +1,9 @@
 pipeline{
 
     agent any
+    tools {
+        // Specify the configured Git installation by its name
+        git 'Default'
 
     environment {
 
