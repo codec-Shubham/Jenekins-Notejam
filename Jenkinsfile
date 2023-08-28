@@ -4,7 +4,7 @@ pipeline{
     tools {
         // Specify the configured Git installation by its name
         git 'Default'
-
+    }
     environment {
 
         DOCKERHUB_CREDENTIALS = credentials('DOCKERHUB')
