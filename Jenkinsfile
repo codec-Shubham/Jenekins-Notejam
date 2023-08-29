@@ -93,7 +93,7 @@ pipeline{
         script {
              kubeconfig = env.KUBECONFIG
             
-            sh "kubectl --kubeconfig ${kubeconfig} get services"
+            sh "minikube --kubeconfig ${kubeconfig} service list"
         }
     }
 }
