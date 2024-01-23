@@ -1,10 +1,10 @@
 pipeline{
 
-    agent any
+    agent k8s
    
     environment {
 
-        DOCKERHUB_CREDENTIALS = credentials('DOCKERHUB')
+        DOCKERHUB_CREDENTIALS = credentials('DOCKER')
         KUBECONFIG = credentials('kube')
       }
 
