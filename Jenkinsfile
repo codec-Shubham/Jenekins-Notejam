@@ -1,6 +1,6 @@
 pipeline{
 
-    agent kubernetes
+    agent jenkins-agent
    
     environment {
 
